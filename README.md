@@ -40,7 +40,7 @@ Feel free to use it anyway you like.
 - This project was inspired by a passion for computer graphics and virtual environments.
 - Special thanks to the FreeGLUT and OpenGL communities for their valuable resources and documentation.
 - I would also like to express my appreciation for other similar projects uploaded here on github opensource,
-  some ideas and references were taken from there projects as well for this project.
+  some ideas and references were taken from those projects as well.
 
 For any questions or issues, please feel free to contact [rajesworld2@gmail.com]
 
