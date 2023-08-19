@@ -1402,7 +1402,7 @@ void display(void)
 
     //grass
     glPushMatrix();
-    glTranslatef(0, 0, 20);
+    glTranslatef(0, 0.11, 20);
     glScalef(4, 1, 0.8);
     ground2();
     glPopMatrix();
