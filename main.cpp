@@ -10,6 +10,10 @@
 #include "BmpLoader.h"
 
 
+//to run this project keep the "Glew and Glut" folder in the desktop as the directory has been linked in that format, you can 
+//find the folders inside this project itself, just copy paste them to desktop when you are trying to run the project
+
+
 GLUquadric* quad;
 
 using namespace std;
@@ -637,8 +641,8 @@ void ferrisWheel()
 
     //ground
     glPushMatrix();
-    glTranslatef(2, 0, 0);
-    glScalef(2, 1, 1.5);
+    glTranslatef(0, 0, 0);
+    glScalef(1.75, 1, 1.5);
     ground2();
     glPopMatrix();
 
@@ -916,9 +920,9 @@ void round_swing()
 void nepali_swing()
 {
 
-    //base
+    //base road
     glPushMatrix();
-    glTranslatef(1, 0, 0);
+    glTranslatef(1, 0, -1.5);
     glScalef(1.4, 1, 1.4);
     ground2();
     glPopMatrix();
@@ -1385,7 +1389,6 @@ void display(void)
     glTranslatef(0, 0, -30);
     ferrisWheel();
     glPopMatrix();
-
     glPushMatrix();
     
     glTranslatef(50, 0, 20);
@@ -1400,7 +1403,7 @@ void display(void)
 
 
 
-    //grass
+    //road1
     glPushMatrix();
     glTranslatef(0, 0.11, 20);
     glScalef(4, 1, 0.8);
@@ -1408,7 +1411,7 @@ void display(void)
     glPopMatrix();
 
 
-    //grass
+    //road2
    glPushMatrix();
     glTranslatef(0, 0.1, 20);
     glScalef(0.6, 1, 4);
@@ -1417,14 +1420,14 @@ void display(void)
 
   
 
-    //grass below tree
+    // below tree
     glPushMatrix();
     glTranslatef(-40, 0, -20);
     glScalef(1, 1, 1.4);
     ground2();
     glPopMatrix();
 
-    //grass below tree
+    // below tree
     glPushMatrix();
     glTranslatef(50, 0, -20);
     glScalef(1, 1, 1.4);
