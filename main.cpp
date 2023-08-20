@@ -18,7 +18,6 @@ GLUquadric* quad;
 
 using namespace std;
 
-double Txval = 0, Tyval = 0, Tzval = 0;
 double windowHeight = 1000, windowWidth = 1000;
 GLfloat alpha = 0.0, theta = 0.0, roundswingAlpha = 0, roundswingTheta = 0.0, nepaliswingTheta = 0.0;
 double eyeX = -10, eyeY = 5.0, eyeZ = 100, refX = 0, refY = 0, refZ = 0;
@@ -29,34 +28,70 @@ unsigned int ID2[40];
 GLfloat yf = 0, xf = 0;
 GLboolean yflag = false, xflag = false;
 
+// Array to store color information for different colors
 static GLfloat colors[4][6] =
 {
-    {1,0,0, 0.5,0,0}, //red
-    {0,1,0, 0,0.5,0}, //green
-    {0,0,1, 0,0,0.5}, //blue
-    {1,1,0, 0.5,0.5,0} //yellow
+    // Red color: (R, G, B)
+    {1, 0, 0, 0.5, 0, 0}, // Red with dim ambient component
+
+    // Green color: (R, G, B)
+    {0, 1, 0, 0, 0.5, 0}, // Green with dim ambient component
+
+    // Blue color: (R, G, B)
+    {0, 0, 1, 0, 0, 0.5}, // Blue with dim ambient component
+
+    // Yellow color: (R, G, B)
+    {1, 1, 0, 0.5, 0.5, 0} // Yellow with dim ambient component
 };
 
+// Array to store vertex coordinates of a cube
 static GLfloat v_cube[8][3] =
 {
-    {0.0, 0.0, 0.0}, //0
-    {0.0, 0.0, 3.0}, //1
-    {3.0, 0.0, 3.0}, //2
-    {3.0, 0.0, 0.0}, //3
-    {0.0, 3.0, 0.0}, //4
-    {0.0, 3.0, 3.0}, //5
-    {3.0, 3.0, 3.0}, //6
-    {3.0, 3.0, 0.0}  //7
+    // Vertex 0: (X, Y, Z)
+    {0.0, 0.0, 0.0}, // Bottom-left-back corner
+
+    // Vertex 1: (X, Y, Z)
+    {0.0, 0.0, 3.0}, // Bottom-left-front corner
+
+    // Vertex 2: (X, Y, Z)
+    {3.0, 0.0, 3.0}, // Bottom-right-front corner
+
+    // Vertex 3: (X, Y, Z)
+    {3.0, 0.0, 0.0}, // Bottom-right-back corner
+
+    // Vertex 4: (X, Y, Z)
+    {0.0, 3.0, 0.0}, // Top-left-back corner
+
+    // Vertex 5: (X, Y, Z)
+    {0.0, 3.0, 3.0}, // Top-left-front corner
+
+    // Vertex 6: (X, Y, Z)
+    {3.0, 3.0, 3.0}, // Top-right-front corner
+
+    // Vertex 7: (X, Y, Z)
+    {3.0, 3.0, 0.0}  // Top-right-back corner
 };
 
+// Array to store quad indices for the cube's faces
 static GLubyte quadIndices[6][4] =
 {
-    {0, 1, 2, 3}, //bottom
-    {4, 5, 6, 7}, //top
-    {5, 1, 2, 6}, //front
-    {3, 7, 4, 0}, // back
-    {2, 3, 7, 6}, //right
-    {0, 4, 5,1}  //left
+    // Bottom face
+    {0, 1, 2, 3}, // Indices of vertices for the bottom face
+
+    // Top face
+    {4, 5, 6, 7}, // Indices of vertices for the top face
+
+    // Front face
+    {5, 1, 2, 6}, // Indices of vertices for the front face
+
+    // Back face
+    {3, 7, 4, 0}, // Indices of vertices for the back face
+
+    // Right face
+    {2, 3, 7, 6}, // Indices of vertices for the right face
+
+    // Left face
+    {0, 4, 5, 1}  // Indices of vertices for the left face
 };
 
 void LoadTexture(const char* filename, int index)
@@ -250,27 +285,30 @@ void drawCylinder(GLfloat difX, GLfloat difY, GLfloat difZ, GLfloat ambX, GLfloa
     gluCylinder(quadratic, 1.5, 1.5, 19, 32, 32);
 }
 
+
+// Definition of vertices for a box (cuboid) in 3D space.
 static GLfloat v_box[8][3] =
 {
-    {0.0, 0.0, 0.0}, //0
-    {3.0, 0.0, 0.0}, //1
-    {0.0, 0.0, 3.0}, //2
-    {3.0, 0.0, 3.0}, //3
-    {0.0, 3.0, 0.0}, //4
-    {3.0, 3.0, 0.0}, //5
-    {0.0, 3.0, 3.0}, //6
-    {3.0, 3.0, 3.0}, //7
-
+    {0.0, 0.0, 0.0}, // Vertex 0
+    {3.0, 0.0, 0.0}, // Vertex 1
+    {0.0, 0.0, 3.0}, // Vertex 2
+    {3.0, 0.0, 3.0}, // Vertex 3
+    {0.0, 3.0, 0.0}, // Vertex 4
+    {3.0, 3.0, 0.0}, // Vertex 5
+    {0.0, 3.0, 3.0}, // Vertex 6
+    {3.0, 3.0, 3.0}  // Vertex 7
 };
 
+
+// Definition of indices for the quads (faces) of the box, formed by connecting vertices.
 static GLubyte BoxquadIndices[6][4] =
 {
-    {0,2,3,1},
-    {0,2,6,4},
-    {2,3,7,6},
-    {1,3,7,5},
-    {1,5,4,0},
-    {6,7,5,4}
+    {0,2,3,1}, // Indices for the bottom quad
+    {0,2,6,4}, // Indices for the front quad
+    {2,3,7,6}, // Indices for the back quad
+    {1,3,7,5}, // Indices for the right quad
+    {1,5,4,0}, // Indices for the left quad
+    {6,7,5,4}  // Indices for the top quad
 };
 
 // Draws a box with texture coordinates using vertex data from v_box and quad indices from BoxquadIndices.
@@ -315,16 +353,21 @@ void light()
     glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 
 }
+
 void sky(float x, float y, float z, float width, float height, float length)
 {
+    // Set the material properties for the sky
     materialProperty();
+
+    // Disable depth testing temporarily for rendering the sky
     glDisable(GL_DEPTH_TEST);
+
+    // Adjust the origin of the sky to the specified position
     x = x - width / 2;
     y = y - height / 2;
     z = z - length / 2;
 
-
-    //front
+    // Render the front side of the sky
     glEnable(GL_TEXTURE_2D);
     if (day == true)
     {
@@ -335,13 +378,14 @@ void sky(float x, float y, float z, float width, float height, float length)
         glBindTexture(GL_TEXTURE_2D, ID2[28]);
     }
     glBegin(GL_QUADS);
+    // Set texture coordinates and vertices for the quad
     glTexCoord2f(0.0f, 0.0f); glVertex3f(x + width, y, z);
     glTexCoord2f(1.0f, 0.0f); glVertex3f(x + width, y, z + length);
     glTexCoord2f(1.0f, 1.0f); glVertex3f(x + width, y + height, z + length);
     glTexCoord2f(0.0f, 1.0f); glVertex3f(x + width, y + height, z);
     glEnd();
 
-    //up;
+    // Render the upper side of the sky
     if (day == true)
     {
         glBindTexture(GL_TEXTURE_2D, ID2[27]);
@@ -351,14 +395,14 @@ void sky(float x, float y, float z, float width, float height, float length)
         glBindTexture(GL_TEXTURE_2D, ID2[28]);
     }
     glBegin(GL_QUADS);
+    // Set texture coordinates and vertices for the quad
     glTexCoord2f(0.0f, 0.0f); glVertex3f(x + width, y + height, z);
     glTexCoord2f(1.0f, 0.0f); glVertex3f(x + width, y + height, z + length);
     glTexCoord2f(1.0f, 1.0f); glVertex3f(x, y + height, z + length);
     glTexCoord2f(0.0f, 1.0f); glVertex3f(x, y + height, z);
     glEnd();
 
-    //back
-
+    // Render the back side of the sky
     if (day == true)
     {
         glBindTexture(GL_TEXTURE_2D, ID2[9]);
@@ -368,13 +412,14 @@ void sky(float x, float y, float z, float width, float height, float length)
         glBindTexture(GL_TEXTURE_2D, ID2[28]);
     }
     glBegin(GL_QUADS);
+    // Set texture coordinates and vertices for the quad
     glTexCoord2f(1.0f, 1.0f); glVertex3f(x, y + height, z);
     glTexCoord2f(0.0f, 1.0f); glVertex3f(x, y + height, z + length);
     glTexCoord2f(0.0f, 0.0f); glVertex3f(x, y, z + length);
     glTexCoord2f(1.0f, 0.0f); glVertex3f(x, y, z);
     glEnd();
 
-    //right
+    // Render the right side of the sky
     if (day == true)
     {
         glBindTexture(GL_TEXTURE_2D, ID2[10]);
@@ -382,16 +427,16 @@ void sky(float x, float y, float z, float width, float height, float length)
     else
     {
         glBindTexture(GL_TEXTURE_2D, ID2[28]);
-    } //10
+    }
     glBegin(GL_QUADS);
+    // Set texture coordinates and vertices for the quad
     glTexCoord2f(1.0f, 0.0f); glVertex3f(x + width, y, z);
     glTexCoord2f(1.0f, 1.0f); glVertex3f(x + width, y + height, z);
     glTexCoord2f(0.0f, 1.0f); glVertex3f(x, y + height, z);
     glTexCoord2f(0.0f, 0.0f); glVertex3f(x, y, z);
     glEnd();
 
-    //left
-
+    // Render the left side of the sky
     if (day == true)
     {
         glBindTexture(GL_TEXTURE_2D, ID2[11]);
@@ -399,18 +444,19 @@ void sky(float x, float y, float z, float width, float height, float length)
     else
     {
         glBindTexture(GL_TEXTURE_2D, ID2[28]);
-    } //11
+    }
     glBegin(GL_QUADS);
+    // Set texture coordinates and vertices for the quad
     glTexCoord2f(1.0f, 0.0f); glVertex3f(x, y, z + length);
     glTexCoord2f(1.0f, 1.0f); glVertex3f(x, y + height, z + length);
     glTexCoord2f(0.0f, 1.0f); glVertex3f(x + width, y + height, z + length);
     glTexCoord2f(0.0f, 0.0f); glVertex3f(x + width, y, z + length);
     glEnd();
 
+    // Disable 2D textures after rendering the sky
     glDisable(GL_TEXTURE_2D);
-
-    
 }
+
 void ground()
 {
     // Enable 2D texture mapping
@@ -668,7 +714,7 @@ void tree()
 
     glPushMatrix();
     glScalef(1, 2, 1);
-    gluQuadricTexture(quad, 1);
+    gluQuadricTexture(quad, 1);// Create a new quadric object for rendering geometric shapes
     gluSphere(quad, 4, 100, 100);
     glPopMatrix();
 
@@ -1361,7 +1407,7 @@ void display(void)
     sky(eyeX + (0.05 * refX), eyeY + (0.05 * refY), eyeZ + (0.05 * refZ), 250, 250, 250);
     glPopMatrix();
 
-    // Enable depth testing for accurate rendering
+    // Enable depth testing for accurate rendering, clipping of hidden surfaces
     glEnable(GL_DEPTH_TEST);
 
     // Call various functions to draw spotlights, ground, and other objects
@@ -1588,13 +1634,13 @@ void animate()
         if (roundswingTheta > 360.0)
             roundswingTheta -= 360.0 * floor(theta / 360.0);
 
-        roundswingAlpha += 0.5;
+        roundswingAlpha += 0.2;
         if (roundswingAlpha >= 30)
             roundswingAlpha = 30;
     }
     else
     {
-        roundswingAlpha -= 0.1;
+        roundswingAlpha -= 0.2;
         if (roundswingAlpha <= 0)
             roundswingAlpha = 0;
 
