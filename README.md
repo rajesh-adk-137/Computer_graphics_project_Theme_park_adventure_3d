@@ -1,46 +1,77 @@
-# OpenGL Theme Park Simulation
 
-This project is a simple theme park simulation developed using OpenGL, created with the Visual Studio IDE on Windows. It aims to showcase the basics of OpenGL graphics and how it can be used to create a virtual theme park environment with dynamic rides and lighting effects.
+---
 
-## Requirements
+# 🎢 OpenGL Theme Park Simulation
 
-To run this project, you will need:
+A simple virtual **theme park simulation** developed using **OpenGL** and **FreeGLUT**, created in **Visual Studio (Windows)**. This project showcases fundamental OpenGL techniques to simulate dynamic rides, lighting effects, and 3D interaction.
 
-- Visual Studio IDE (Windows)
-- FreeGLUT library
-- OpenGL library
+---
 
-## Installation and Usage
+## 🛠 Requirements
 
-1. Clone or download this repository to your local machine.
-2. Open the project in Visual Studio IDE.
-3. Make sure you have FreeGLUT and OpenGL libraries properly configured.
-4. Build and run the project from within Visual Studio.
+To build and run this project, you’ll need:
 
-## Features
+- **Visual Studio** (2017 or newer)
+- **OpenGL** (Included with most compilers)
+- **FreeGLUT** (For window management and input handling)
 
-- Virtual theme park simulation.
-- Basic rides like a Ferris wheel, Nepali-style swing, and round swing.
-- Dynamic lighting and ambient illumination effects.
-- Demonstrates the fundamental use of OpenGL for graphics rendering.
+---
 
-## Getting Started
+## 🚀 Installation & Setup
 
-1. Clone this repository: `git clone https://github.com/your-username/theme-park-simulation.git`
-2. Open the project in Visual Studio.
-3. Configure the FreeGLUT and OpenGL libraries if necessary.
-4. Build and run the project to experience the theme park simulation.
+setting up opengl with freeglut in visual studio can be frustrating for first-time users. It is highly recommended to follow
+step-by-step tutorials on **YouTube** or other trusted sources to correctly configure include paths, linker settings, and dependencies.
 
-## License
+Once setup is done:
 
-Feel free to use it anyway you like.
+1. Clone this repository:
+    ```bash
+    git clone https://github.com/your-username/theme-park-simulation.git
+    ```
+2. Open the solution file (`.sln`) in Visual Studio.
+3. Build the project (`Ctrl + Shift + B`) and run it (`F5`).
 
-## Acknowledgements
+---
 
-- This project was inspired by a passion for computer graphics and virtual environments.
-- Special thanks to the FreeGLUT and OpenGL communities for their valuable resources and documentation.
-- I would also like to express my appreciation for other similar projects uploaded here on github opensource,
-  some ideas and references were taken from those projects as well.
+## 🎡 Features
 
-For any questions or issues, please feel free to contact [rajesworld2@gmail.com]
+- Interactive **3D theme park** environment.
+- Simulated rides including:
+  - Ferris Wheel  
+  - Nepali-style swing (Ping)  
+  - Circular spinning ride
+- **Dynamic lighting** and ambient shading.
+- Keyboard-based navigation and camera control.
+- Demonstrates core **OpenGL rendering concepts** and transformation logic.
 
+---
+
+## 📸 Screenshots
+
+### 🎠 Ride Overview  
+![Image](https://github.com/user-attachments/assets/7ab5377f-ae14-4877-a376-84fbd1193220)
+
+### 🪢 Nepali-style Swing  
+![Image](https://github.com/user-attachments/assets/68db9ffc-8e25-480e-ba0c-23bfa518a4b9)
+
+### 🎢 More Rides in Action  
+![Image](https://github.com/user-attachments/assets/e62c5cf6-25df-438d-bec9-a3d603fe760e)
+
+### 🌙 Night Mode with Lighting Effects  
+![Image](https://github.com/user-attachments/assets/f81caf05-24f9-40e1-a020-1434df4549ed)
+
+---
+
+## 📖 License
+
+This project is released under the **MIT License**.  
+Use it freely in your own educational or creative projects.
+
+---
+
+## 🙏 Acknowledgements
+
+- Thanks to the **OpenGL** and **FreeGLUT** communities for documentation and learning resources.
+- Some design inspirations and logic were referenced from other open-source graphics projects on GitHub.
+
+---
